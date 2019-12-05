@@ -13,7 +13,7 @@ public class Validations {
         if (password.length() < 8) {
             results = false;
         }
-        return !results;
+        return results;
     }
 
     boolean lowerCase (String password) {

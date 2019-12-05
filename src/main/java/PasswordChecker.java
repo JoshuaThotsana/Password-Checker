@@ -13,7 +13,7 @@ public class PasswordChecker {
             existence = false;
             count --;
         }
-        if (validations.longer(password)) {
+        if (!validations.longer(password)) {
             System.err.println("2. Password should be longer than than 8 characters.");
             longer = false;
             count --;
@@ -41,7 +41,7 @@ public class PasswordChecker {
         if (existence && longer && lowerCase && upperCase && digit && character) {
             System.out.println("Password meets all the minimum requirements.");
         }
-        if (validations.longer(password)) {
+        if (!validations.longer(password)) {
             System.err.println("\nPassword is never okay if both condition 1 and 2 are not met.\n");
         }
     }
