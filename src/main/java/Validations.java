@@ -13,7 +13,7 @@ public class Validations {
         if (password.length() < 8) {
             results = false;
         }
-        return results;
+        return !results;
     }
 
     boolean lowerCase (String password) {
@@ -29,10 +29,8 @@ public class Validations {
 
     boolean upperCase (String password) {
         boolean results = false;
-        char ch;
         for (int i = 0; i < password.length(); i++) {
-            ch = password.charAt(i);
-            if (Character.isUpperCase(ch)) {
+            if (Character.isUpperCase(password.charAt(i))) {
                 results = true;
                 break;
             }
@@ -42,10 +40,8 @@ public class Validations {
 
     boolean digit (String password) {
         boolean results =  false;
-        char ch;
         for (int i = 0; i < password.length(); i++) {
-            ch = password.charAt(i);
-            if (Character.isDigit(ch)) {
+            if (Character.isDigit(password.charAt(i))) {
                 results = true;
                 break;
             }

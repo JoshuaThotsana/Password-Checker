@@ -13,7 +13,9 @@ public class Main {
         String password = scanner.nextLine();
 
         passwordChecker.passwordIsValid(password);
-        System.out.println(passwordChecker.passwordIsOk());;
+
+
+        System.out.println("Is password okay: "+passwordChecker.passwordIsOk());
 
     }
 
