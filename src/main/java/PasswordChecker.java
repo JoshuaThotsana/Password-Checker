@@ -1,57 +1,61 @@
-public class PasswordChecker {
+public class  PasswordChecker {
 
-    boolean existence = true, longer = true, lowerCase = true, upperCase = true, digit = true, character = true;
+    public int errorCount;
+    private Validations validations = new Validations();
 
-    int count = 6;
-
-    Validations validations = new Validations();
-
-    void passwordIsValid(String password)  {
+    
+    /* In this method we will initialize an empty string "errors", and then append the string with every
+     * error we encounter as the program runs. Next we check if the string is empty. And if it is not,
+     * we throw an exception with the error messages.
+     * The method needs to be synchronized because we need to make sure that we are protected from the thread.
+     */
+    synchronized void passwordIsValid(String password) throws Exception{
+        String errors = "";
 
         if (!validations.existence(password)) {
-            System.err.println("1. Password should exist.");
-            existence = false;
-            count --;
+            errors += "1. Password should exist.\n";
         }
         if (!validations.longer(password)) {
-            System.err.println("2. Password should be longer than than 8 characters.");
-            longer = false;
-            count --;
+            errors += "2. Password should be longer than than 8 characters.\n";
         }
         if (!validations.lowerCase(password)) {
-            System.err.println("3. Password should have at least one lowercase letter.");
-            lowerCase = false;
-            count --;
+            errors += "3. Password should have at least one lowercase letter.\n";
         }
         if (!validations.upperCase(password)) {
-            System.err.println("4. Password should have at least one uppercase letter.");
-            upperCase = false;
-            count --;
+            errors += "4. Password should have at least one uppercase letter.\n";
         }
         if (!validations.digit(password)) {
-            System.err.println("5. Password should have at least have one digit.");
-            digit = false;
-            count --;
+            errors += "5. Password should have at least one digit.\n";
         }
         if (!validations.character(password)) {
-            System.err.println("6. Password should have at least one special character.");
-            character = false;
-            count --;
+            errors += "6. Password should have at least one special character.\n";
         }
-        if (existence && longer && lowerCase && upperCase && digit && character) {
-            System.out.println("Password meets all the minimum requirements.");
-        }
-        if (!validations.longer(password)) {
-            System.err.println("\nPassword is never okay if both condition 1 and 2 are not met.\n");
+
+        if (errors.length() > 0) {
+            throw new Exception(errors);
         }
     }
 
-    boolean passwordIsOk() {
+    /* In the method below we check for each and every condition and return 1 if the condition is met. Otherwise
+     * we return 0. Then we count how many one's we have and if they are more than or equals to three, then the
+     * method returns true.
+     */
+     boolean passwordIsOk(String password) {
 
-        boolean results = true;
-        if (count < 3) {
-            results = false;
+        int existence = (validations.existence(password)) ? 1:0;
+        int longer = (validations.longer(password)) ? 1:0;
+        int lowerCase = (validations.lowerCase(password)) ? 1:0;
+        int upperCase = (validations.upperCase(password)) ? 1:0;
+        int digit = (validations.digit(password)) ? 1:0;
+        int character = (validations.character(password)) ? 1:0;
+
+        if (existence+longer+lowerCase+upperCase+digit+character >= 3) {
+            return true;
         }
-        return results;
+
+        if (existence + longer != 2) {
+            System.err.println("\nPassword is never okay if both condition 1 and 2 are not met.\n");
+        }
+        return false;
     }
 }
