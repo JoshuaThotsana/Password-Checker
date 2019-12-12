@@ -1,6 +1,5 @@
 public class  PasswordChecker {
 
-    public int errorCount;
     private Validations validations = new Validations();
 
     
